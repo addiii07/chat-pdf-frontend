@@ -1,0 +1,85 @@
+<div fxLayout="row"
+    style="position: relative !important; display: flex; width:99%; margin: 0 auto; border: 1px solid #ccc; border-radius: 5px; overflow: hidden; align-items: stretch; height: 100%;">
+    <!-- Left side -->
+    <div style="flex-basis:50%; padding:0 20px; border-right: 1px solid #ccc;">
+        <div class="empty-img text-left" *ngIf="!fileSelected && !isLoading">
+            <p class="empty-screen">Please select a document..</p>
+        </div>
+        <input type="file" id="fileInput" (change)="onFileChange($event)" style="display: none;">
+        <label for="fileInput" class="custom-file-upload" *ngIf="!isLoading">{{ fileSelected ? 'Choose Another File' :
+            'Choose File' }}</label>
+        <p class="empty-screen errorTxt" *ngIf="fileError" style="color: red;">*Please upload only PDF files.</p>
+        <iframe id="documentViewer" width="100%" height="430px" frameborder="0" style="width: 100%;"></iframe>
+    </div>
+
+    <!-- Right side -->
+    <div style="flex-basis:50%; padding:0; overflow: hidden; position: relative;">
+        <ngx-spinner [fullScreen]="false" bdColor="rgba(51,51,51,0.8)"
+            style="display: flex; height:500px; align-items: center; justify-content: center; position:absolute !important;"
+            color="#fff" type="ball-scale-multiple">
+            <p id="loadingMessage" style="font-size: 20px; color: white;">{{loadingMessage}}</p>
+        </ngx-spinner>
+        <div style="overflow-y: scroll; height:500px; position: relative; align-items: flex-start; padding: 20px;">
+            <div *ngIf="showChatInput && !showSingleQuestion && !showTemplate"
+                style="margin-top: 20px; text-align: center;">
+                <button class="custom-file-upload" (click)="showSingleQuestionInput()"
+                    style="margin-right: 20px; padding: 20px; font-size: 16px;">Ask a Single Question</button>
+                <button class="custom-file-upload" (click)="showTemplatePopup()"
+                    style="padding: 20px; font-size: 16px;">Ask from Template</button>
+            </div>
+            <div *ngIf="showSingleQuestion && !responseReceived" style="margin-top: 20px; text-align: center;">
+                <input type="text" placeholder="Ask anything from the document..." [(ngModel)]="singleQuestionInput"
+                    (keydown)="onKeyDown($event, 'singleQuestion')"
+                    style="width: 80%; padding: 10px; font-size: 16px; margin-bottom: 10px;" />
+                <div>
+                    <button class="custom-file-upload" (click)="sendSingleQuestion()"
+                        style="margin-right: 10px;">Send</button>
+                    <button class="custom-file-upload" (click)="cancelSingleQuestion()">Cancel</button>
+                </div>
+            </div>
+            <div *ngIf="showTemplate && !responseReceived" class="template-popup"
+                style="margin-top: 20px; text-align: center;">
+                <div class="popup-content" style="max-height:250px; overflow-y:auto;">
+                    <div *ngFor="let question of templateQuestions; let i = index" class="template-question"
+                        style="margin-bottom: 10px;">
+                        <div class="textFieldBtn">
+                            <input type="text" [(ngModel)]="question.text"
+                                (keydown)="onKeyDown($event, 'templateQuestion', i)" />
+                            <button (click)="addTemplateQuestion()" style="margin-left: 10px;">+</button>
+                            <button *ngIf="templateQuestions.length > 1" (click)="removeTemplateQuestion(i)"
+                                style="font-size: 16px; color: red; margin-left:5px;">x</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="custom-file-upload" (click)="cancelTemplate()"
+                            style="margin-right: 10px;">Cancel</button>
+                        <button class="custom-file-upload" (click)="submitTemplateQuestions()">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let responseObj of allData; let i = index" style="margin-bottom: 20px;">
+                <div>
+                    <p><span><b>{{ i + 1 }}. Question : </b></span> <span>{{ responseObj.question }}</span></p>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 10px;"><span><b>Answer : </b></span> <span>{{ responseObj.response
+                                }}</span></p>
+                        <p style="margin-right: 10px;"><span><b>{{ responseObj.page }}</b></span></p>
+                    </div>
+                    <div *ngIf="!responseObj.feedbackGiven">
+                        <button (click)="submitFeedback(i, 'right')" class="feedback-button"
+                            style="background-color: green;">
+                            <i class="fa-sharp fa-solid fa-check"></i>
+                        </button>
+                        <button (click)="submitFeedback(i, 'wrong')" class="feedback-button"
+                            style="background-color: red;">
+                            <i class="fa-sharp fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="responseReceived" style="margin-top: 20px; text-align: center;">
+                <button class="custom-file-upload" (click)="backToInput()">Back</button>
+            </div>
+        </div>
+    </div>
+</div>

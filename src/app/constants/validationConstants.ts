@@ -1,0 +1,55 @@
+export const validationMessage={
+    toasterClass:{
+        success:'success',
+        error:'error',
+        warning:'warning',
+        info: 'info'
+    },
+    common :{ 
+        savedSuccessMsg:'Data Saved Successfully',
+        savedFailedMsg:'Failed to save data',
+        updateSuccessMsg:'Data Updated Successfully',
+        updateFailedMsg:'Failed to update data',
+        deleteSuccessMsg:'Data deleted Successfully',
+        deleteFailedMsg:'Failed to delete data',
+        minCharacterError: 'Minimum character required is ',
+        maxCharacterError: 'Maximum character required is',
+        minValueError: 'Minimum value is',
+        maxValueError: 'Maximum value is',
+        requireError: 'This is required',
+        saveConfirmation:'There are some unsaved changes pending. Do you want to save?',
+        deleteConfirmation: 'Record will be deleted, want to continue?',        
+        applicationError:'Unexpected error occured, Kindly contact administrator',
+        formError: 'Please check all form fields',
+        noFormChange:'No changes to save',
+        dateError: 'Invalid Date',
+        emailError : 'Email must be a valid email address',
+        invalidData: 'Invalid value',
+        noRecordsFound: 'No Records Found',
+        dataAlreadyExist:'Data already exist',
+        latitudeError:'Invalid latitude',
+        longitudeError:'Invalid longitude',
+        tokenInvalid:'Invalid token, redirecting to login',
+        invalidUser:'Invalid username or password',
+        forbiddenAccess:'Access forbidden, redirecting to login',
+        exitWithoutSaveWarning: 'If you navigate away you will lose your changes, do you want to exit?',
+        heading:"ArcadiaOne-Dev-",
+        mediaPathSampleOutboundExcelFile:'http://10.161.224.10:1243/MassOutboundSampleExcel/SampleOutbound.xlsx',
+        mediaPathSampleInboundExcelFile:'http://10.161.224.10:1243/MassInboundSampleExcel/SampleInbound.xlsx',
+
+
+     },
+    login:{
+        usernameRequired:'Username is required',
+        passwordRequired:'Password is required',
+        passwordmatchErr:'Password and confirm password should match',
+        captchaRequire:'captcha not valid',
+    }, 
+    excel:{
+        noFileSelected:'No file selected for validation',
+        notAnExcelFile:'Error: Selected file is not an Excel file',
+        validatedSuccessfully:'Excel file validated successfully',
+        OutboundSuccess:'Outbound orders uploaded successfully',
+        InboundSuccess:'Inbound orders uploaded successfully',
+    }
+  };
